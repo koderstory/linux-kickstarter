@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPO_URL="https://raw.githubusercontent.com/username/linux-kickstarter/main"
+REPO_URL="https://raw.githubusercontent.com/koderstory/linux-kickstarter/v0.1.0"
 INSTALL_DIR="$HOME/.linux-kickstarter"
 ESSENTIAL_PACKAGES=(
     "curl"
@@ -21,15 +21,18 @@ sudo apt-get upgrade -y
 # Install essential packages
 sudo apt-get install -y "${ESSENTIAL_PACKAGES[@]}"
 
-# echo "🔧 Menginstal Linux Kickstarter ke $INSTALL_DIR..."
+echo "🔧 Install Linux Kickstarter to $INSTALL_DIR..."
 
-# Buat direktori
-# mkdir -p "$INSTALL_DIR/modules"
+# mkdir -p "$INSTALL_DIR/configs"
+# mkdir -p "$INSTALL_DIR/helpers"
+# mkdir -p "$INSTALL_DIR/tasks"
 
-# Unduh skrip utama
+# Download scripts
 # curl -sS "$REPO_URL/kickstarter.sh" -o "$INSTALL_DIR/kickstarter.sh"
+# curl -sS "$REPO_URL/configs/packages.sh" -o "$INSTALL_DIR/configs/packages.sh"
+# curl -sS "$REPO_URL/helpers/messages.sh" -o "$INSTALL_DIR/helpers/messages.sh"
+# curl -sS "$REPO_URL/helpers/prompt.sh" -o "$INSTALL_DIR/helpers/prompt.sh"
+# curl -sS "$REPO_URL/helpers/systems.sh" -o "$INSTALL_DIR/helpers/systems.sh"
 
-# Unduh modul-modul
-# curl -sS "$REPO_URL/modules/base.sh" -o "$INSTALL_DIR/modules/base.sh"
-# curl -sS "$REPO_URL/modules/media.sh" -o "$INSTALL_DIR/modules/media.sh"
-# curl -sS "$REPO_URL/modules/dev.sh" -o "$INSTALL_DIR/modules/dev.sh"
+# Remove all downloaded files
+rm -rf "$INSTALL_DIR/.linux-kickstarter" && exit
