@@ -1,15 +1,7 @@
 # ===================================================================================
 # Packages options to be installed
 # ===================================================================================
-ESSENTIAL_PACKAGES=(
-    "curl"
-    "git"
-    "gpg"
-    "htop"
-    "openssh-client" # ssh-keygen command
-    "wget"
-)
-USEFUL_PDE_UTILITIES=(
+USEFULL_PDE_UTILITIES=(
     "tldr"
     "tree"
 )

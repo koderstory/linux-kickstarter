@@ -9,6 +9,7 @@ ESSENTIAL_PACKAGES=(
     "htop"
     "openssh-client" # ssh-keygen command
     "wget"
+    "whiptail"
 )
 
 set -e  # Enable exit on error
@@ -23,16 +24,11 @@ sudo apt-get install -y "${ESSENTIAL_PACKAGES[@]}"
 
 echo "🔧 Install Linux Kickstarter to $INSTALL_DIR..."
 
-# mkdir -p "$INSTALL_DIR/configs"
-# mkdir -p "$INSTALL_DIR/helpers"
-# mkdir -p "$INSTALL_DIR/tasks"
+mkdir -p "$INSTALL_DIR/modules"
 
 # Download scripts
-# curl -sS "$REPO_URL/kickstarter.sh" -o "$INSTALL_DIR/kickstarter.sh"
-# curl -sS "$REPO_URL/configs/packages.sh" -o "$INSTALL_DIR/configs/packages.sh"
-# curl -sS "$REPO_URL/helpers/messages.sh" -o "$INSTALL_DIR/helpers/messages.sh"
-# curl -sS "$REPO_URL/helpers/prompt.sh" -o "$INSTALL_DIR/helpers/prompt.sh"
-# curl -sS "$REPO_URL/helpers/systems.sh" -o "$INSTALL_DIR/helpers/systems.sh"
-
-# Remove all downloaded files
-rm -rf "$INSTALL_DIR/.linux-kickstarter" && exit
+curl -sS -o "$REPO_URL/kickstarter.sh" "$INSTALL_DIR/kickstarter.sh" \
+    -o "$REPO_URL/modules/packages.sh" "$INSTALL_DIR/modules/packages.sh" \
+    -o "$REPO_URL/modules/messages.sh" "$INSTALL_DIR/modules/messages.sh" \
+    -o "$REPO_URL/modules/prompt.sh" "$INSTALL_DIR/modulues/prompt.sh" \
+    -o "$REPO_URL/modules/systems.sh" "$INSTALL_DIR/modules/systems.sh"
