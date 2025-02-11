@@ -32,3 +32,14 @@ curl -sS -o "$REPO_URL/kickstarter.sh" "$INSTALL_DIR/kickstarter.sh" \
     -o "$REPO_URL/modules/messages.sh" "$INSTALL_DIR/modules/messages.sh" \
     -o "$REPO_URL/modules/prompt.sh" "$INSTALL_DIR/modulues/prompt.sh" \
     -o "$REPO_URL/modules/systems.sh" "$INSTALL_DIR/modules/systems.sh"
+
+# Tambahkan ke shell profile
+SHELL_RC="$HOME/.bashrc"
+[ -f "$HOME/.zshrc" ] && SHELL_RC="$HOME/.zshrc"
+
+if ! grep -q 'kickstarter.sh' "$SHELL_RC"; then
+    echo "source $INSTALL_DIR/kickstarter.sh" >> "$SHELL_RC"
+fi
+
+echo "✅ Instalasi selesai! Silakan restart terminal atau jalankan:"
+echo "   source $SHELL_RC"
