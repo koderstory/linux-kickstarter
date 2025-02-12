@@ -56,9 +56,9 @@ curl -sS -o "$INSTALL_DIR/modules/systems.sh" "$REPO_URL/modules/systems.sh" || 
 SHELL_RC="$HOME/.bashrc"
 [ -f "$HOME/.zshrc" ] && SHELL_RC="$HOME/.zshrc"
 
-if ! grep -q 'kickstarter.sh' "$SHELL_RC"; then
+if ! grep -q 'kickstart.sh' "$SHELL_RC"; then
     echo "🔗 Adding Linux Kickstarter to $SHELL_RC..."
-    echo "source $INSTALL_DIR/kickstarter.sh" >> "$SHELL_RC"
+    echo "source $INSTALL_DIR/kickstart.sh" >> "$SHELL_RC"
 fi
 
 echo "✅ Installation complete! Please restart your terminal or run:"
