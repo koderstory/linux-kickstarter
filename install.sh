@@ -27,11 +27,11 @@ echo "🔧 Install Linux Kickstarter to $INSTALL_DIR..."
 mkdir -p "$INSTALL_DIR/modules"
 
 # Download scripts
-curl -sS -o "$REPO_URL/kickstarter.sh" "$INSTALL_DIR/kickstarter.sh" \
-    -o "$REPO_URL/modules/packages.sh" "$INSTALL_DIR/modules/packages.sh" \
-    -o "$REPO_URL/modules/messages.sh" "$INSTALL_DIR/modules/messages.sh" \
-    -o "$REPO_URL/modules/prompt.sh" "$INSTALL_DIR/modulues/prompt.sh" \
-    -o "$REPO_URL/modules/systems.sh" "$INSTALL_DIR/modules/systems.sh"
+curl -sS -o "$INSTALL_DIR/kickstarter.sh" "$REPO_URL/kickstarter.sh"
+curl -sS -o "$INSTALL_DIR/modules/packages.sh" "$REPO_URL/modules/packages.sh"
+curl -sS -o "$INSTALL_DIR/modules/messages.sh" "$REPO_URL/modules/messages.sh"
+curl -sS -o "$INSTALL_DIR/modules/prompt.sh" "$REPO_URL/modules/prompt.sh"
+curl -sS -o "$INSTALL_DIR/modules/systems.sh" "$REPO_URL/modules/systems.sh"
 
 # Tambahkan ke shell profile
 SHELL_RC="$HOME/.bashrc"
