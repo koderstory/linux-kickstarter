@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPO_URL="https://raw.githubusercontent.com/koderstory/linux-kickstarter/v0.1.2"
+REPO_URL="https://raw.githubusercontent.com/koderstory/linux-kickstarter/v0.1.3"
 INSTALL_DIR="$HOME/.linux-kickstarter"
 ESSENTIAL_PACKAGES=(
     "curl"
@@ -31,8 +31,8 @@ mkdir -p "$INSTALL_DIR/modules"
 
 # Download scripts
 echo "📥 Downloading scripts..."
-curl -sS -o "$INSTALL_DIR/kickstarter.sh" "$REPO_URL/kickstarter.sh" || {
-    echo "❌ Failed to download kickstarter.sh"
+curl -sS -o "$INSTALL_DIR/kickstart.sh" "$REPO_URL/kickstart.sh" || {
+    echo "❌ Failed to download kickstart.sh"
     exit 1
 }
 curl -sS -o "$INSTALL_DIR/modules/packages.sh" "$REPO_URL/modules/packages.sh" || {
