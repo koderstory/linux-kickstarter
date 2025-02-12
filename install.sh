@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPO_URL="https://raw.githubusercontent.com/koderstory/linux-kickstarter/v0.1.0"
+REPO_URL="https://raw.githubusercontent.com/koderstory/linux-kickstarter/v0.1.2"
 INSTALL_DIR="$HOME/.linux-kickstarter"
 ESSENTIAL_PACKAGES=(
     "curl"
@@ -16,30 +16,50 @@ set -e  # Enable exit on error
 
 # ===================================================================================
 # Update the system
+echo "🔄 Updating system..."
 sudo apt-get update
 sudo apt-get upgrade -y
 
 # Install essential packages
+echo "📦 Installing essential packages..."
 sudo apt-get install -y "${ESSENTIAL_PACKAGES[@]}"
 
-echo "🔧 Install Linux Kickstarter to $INSTALL_DIR..."
+echo "🔧 Installing Linux Kickstarter to $INSTALL_DIR..."
 
+# Create installation directory
 mkdir -p "$INSTALL_DIR/modules"
 
 # Download scripts
-curl -sS -o "$INSTALL_DIR/kickstarter.sh" "$REPO_URL/kickstarter.sh"
-curl -sS -o "$INSTALL_DIR/modules/packages.sh" "$REPO_URL/modules/packages.sh"
-curl -sS -o "$INSTALL_DIR/modules/messages.sh" "$REPO_URL/modules/messages.sh"
-curl -sS -o "$INSTALL_DIR/modules/prompt.sh" "$REPO_URL/modules/prompt.sh"
-curl -sS -o "$INSTALL_DIR/modules/systems.sh" "$REPO_URL/modules/systems.sh"
+echo "📥 Downloading scripts..."
+curl -sS -o "$INSTALL_DIR/kickstarter.sh" "$REPO_URL/kickstarter.sh" || {
+    echo "❌ Failed to download kickstarter.sh"
+    exit 1
+}
+curl -sS -o "$INSTALL_DIR/modules/packages.sh" "$REPO_URL/modules/packages.sh" || {
+    echo "❌ Failed to download packages.sh"
+    exit 1
+}
+curl -sS -o "$INSTALL_DIR/modules/messages.sh" "$REPO_URL/modules/messages.sh" || {
+    echo "❌ Failed to download messages.sh"
+    exit 1
+}
+curl -sS -o "$INSTALL_DIR/modules/prompt.sh" "$REPO_URL/modules/prompt.sh" || {
+    echo "❌ Failed to download prompt.sh"
+    exit 1
+}
+curl -sS -o "$INSTALL_DIR/modules/systems.sh" "$REPO_URL/modules/systems.sh" || {
+    echo "❌ Failed to download systems.sh"
+    exit 1
+}
 
-# Tambahkan ke shell profile
+# Add to shell profile
 SHELL_RC="$HOME/.bashrc"
 [ -f "$HOME/.zshrc" ] && SHELL_RC="$HOME/.zshrc"
 
 if ! grep -q 'kickstarter.sh' "$SHELL_RC"; then
+    echo "🔗 Adding Linux Kickstarter to $SHELL_RC..."
     echo "source $INSTALL_DIR/kickstarter.sh" >> "$SHELL_RC"
 fi
 
-echo "✅ Instalasi selesai! Silakan restart terminal atau jalankan:"
+echo "✅ Installation complete! Please restart your terminal or run:"
 echo "   source $SHELL_RC"
