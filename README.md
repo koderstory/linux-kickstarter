@@ -9,13 +9,13 @@ Automate script for linux first steps (post fresh installation and configuration
 To **Install** kickstarter, you should run the install script. To do that, you may either download and run the script manually, or use the following cURL or Wget command:
 
 ```bash
-curl -o- https://raw.githubusercontent.com/koderstory/linux-kickstarter/v0.1.1/install.sh | bash
+curl -o- https://raw.githubusercontent.com/koderstory/linux-kickstarter/v0.1.2/install.sh | bash
 ```
 
 or
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/koderstory/linux-kickstarter/v0.1.1/install.sh | bash
+wget -qO- https://raw.githubusercontent.com/koderstory/linux-kickstarter/v0.1.2/install.sh | bash
 ```
 
 #### Running
