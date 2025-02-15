@@ -1,4 +1,4 @@
-source "$INSTALL_DIR/modules/messages.sh"
+source "$KICKSTARTER_DIR/modules/messages.sh"
 
 # Fungsi untuk membuat pilihan dinamis dari array
 generate_options() {
