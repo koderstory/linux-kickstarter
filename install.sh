@@ -60,11 +60,19 @@ SHELL_RC="$HOME/.bashrc"
 [ -f "$HOME/.zshrc" ] && SHELL_RC="$HOME/.zshrc"
 
 if ! grep -q 'kickstart.sh' "$SHELL_RC"; then
-    echo "source $INSTALL_DIR/kickstart.sh" >> "$SHELL_RC"
+    # Add multiline content to shell profile
+    cat << EOF >> "$SHELL_RC"
+
+# Kickstarter
+source $INSTALL_DIR/kickstart.sh
+
+EOF
+    echo -e "\n\033[1;32m✓ Done\033[0m Shell profile updated\n"
+else
+    echo -e "\n\036[90m✓ Profile already contains kickstart.sh\033[0m\n"
 fi
 
 source "$SHELL_RC"
-echo "\n\033[1;32m✓ Done\033[0m Shell profile updated\n"
 
 # Cleanup
 echo "\n\033[1;32m✓ Done\033[0m Kickstarter installed successfully\n"
