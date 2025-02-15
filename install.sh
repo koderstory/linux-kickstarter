@@ -22,12 +22,20 @@ spinner() {
     local spinstr='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
     while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
         for i in $(seq 0 9); do
-            printf "\r\033[90m${spinstr:$i:1} ${msg}\033[0m"
+            printf "\r\033[34m${spinstr:$i:1} ${msg}\033[0m"
             sleep $delay
         done
     done
     printf "\r\033[1;32m✓ Done\033[0m ${msg}\n"
 }
+
+sudo -v
+if [ $? -eq 0 ]; then
+    echo -e "\033[1;32m✓ Authenticated\033[0m\n"
+else
+    echo -e "\033[1;31m✗ Authentication failed\033[0m\n"
+    exit 1
+fi
 
 # Update the system
 echo "○ Update system"
@@ -71,10 +79,10 @@ EOF
     ) >/dev/null 2>&1 &
     spinner $! "Updating shell profile..."
 else
-    echo -e "\n\033[90m✓ Profile already contains kickstart.sh\033[0m\n"
+    echo -e "\n\033[34m✓ Profile already contains kickstart.sh\033[0m\n"
 fi
 source "$SHELL_RC"
 
 # Cleanup
 echo "\n\033[1;32m✓ Done\033[0m Kickstarter installed successfully\n"
-rm "$INSTALL_DIR/install.sh"
+# rm "$INSTALL_DIR/install.sh"
