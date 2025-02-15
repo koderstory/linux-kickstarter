@@ -48,8 +48,9 @@ echo "○ Install essentials"
 spinner $! "Installing essential packages..."
 
 # Create installation directory
+echo "○ Create installation directory"
 mkdir -p "$INSTALL_DIR/modules"
-echo "\n\033[1;32m✓ Done\033[0m Directory created\n"
+echo -e "\033[1;32m✓ Done\033[0m Directory created"
 
 # Download scripts
 echo "○ Download scripts"
@@ -79,10 +80,10 @@ EOF
     ) >/dev/null 2>&1 &
     spinner $! "Updating shell profile..."
 else
-    echo -e "\n\033[34m✓ Profile already contains kickstart.sh\033[0m\n"
+    echo -e "\033[34m✓ Profile already contains kickstart.sh\033[0m"
 fi
 source "$SHELL_RC"
 
 # Cleanup
-echo "\n\033[1;32m✓ Done\033[0m Kickstarter installed successfully\n"
+echo -e "\033[1;32m✓ Done\033[0m Kickstarter installed successfully"
 # rm "$INSTALL_DIR/install.sh"
