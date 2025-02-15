@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPO_URL="https://raw.githubusercontent.com/koderstory/linux-kickstarter/v0.1.5"
+REPO_URL="https://raw.githubusercontent.com/koderstory/linux-kickstarter/v0.1.6"
 INSTALL_DIR="$HOME/.linux-kickstarter"
 ESSENTIAL_PACKAGES=(
     "curl"
