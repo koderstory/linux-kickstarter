@@ -166,5 +166,5 @@ kickstart() {
     print_success "Kickstarter completed successfully"
 
     # Remove all downloaded files
-    rm -rf "$INSTALL_DIR/.linux-kickstarter" && exit
+    rm -rf "$KICKSTARTER_DIR/.linux-kickstarter" && exit
 }
