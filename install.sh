@@ -14,64 +14,65 @@ ESSENTIAL_PACKAGES=(
 
 set -e # Enable exit on error
 
+# Fungsi spinner
 spinner() {
     local pid=$1
+    local msg=$2
     local delay=0.1
-    local spinstr='|/-\'
+    local spinstr='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
     while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
-        local temp=${spinstr#?}
-        printf " [%c]  " "$spinstr"
-        local spinstr=$temp${spinstr%"$temp"}
-        sleep $delay
-        printf "\b\b\b\b\b\b"
+        for i in $(seq 0 9); do
+            printf "\r\033[90m${spinstr:$i:1} ${msg}\033[0m"
+            sleep $delay
+        done
     done
-    printf "    \b\b\b\b"
+    printf "\r\033[1;32m✓ Done\033[0m ${msg}\n"
 }
 
 # Update the system
-echo "\n\033[90m○ Updating system...\033[0m\n"
+echo "○ Update system"
 (sudo apt-get update && sudo apt-get upgrade -y) > /dev/null 2>&1 &
-spinner $!
-echo "\n\033[1;32m✓ Done\033[0m System updated\n"
+spinner $! "Updating system..."
 
 # Install essential packages
-echo "\n\033[90m○ Installing essential packages...\033[0m\n"
+echo "○ Install essentials"
 (sudo apt-get install -y "${ESSENTIAL_PACKAGES[@]}") > /dev/null 2>&1 &
-spinner $!
-echo "\n\033[1;32m✓ Done\033[0m Essential packages installed\n"
+spinner $! "Installing essential packages..."
 
 # Create installation directory
 mkdir -p "$INSTALL_DIR/modules"
 echo "\n\033[1;32m✓ Done\033[0m Directory created\n"
 
 # Download scripts
-echo "\n\033[90m○ Downloading scripts...\033[0m\n"
-(curl -sS -o "$INSTALL_DIR/kickstart.sh" "$REPO_URL/kickstart.sh" && \
- curl -sS -o "$INSTALL_DIR/modules/packages.sh" "$REPO_URL/modules/packages.sh" && \
- curl -sS -o "$INSTALL_DIR/modules/messages.sh" "$REPO_URL/modules/messages.sh" && \
- curl -sS -o "$INSTALL_DIR/modules/prompt.sh" "$REPO_URL/modules/prompt.sh" && \
- curl -sS -o "$INSTALL_DIR/modules/systems.sh" "$REPO_URL/modules/systems.sh") > /dev/null 2>&1 &
-spinner $!
-echo "\n\033[1;32m✓ Done\033[0m Script downloaded\n"
+echo "○ Download scripts"
+(
+    curl -sS -o "$INSTALL_DIR/kickstart.sh" "$REPO_URL/kickstart.sh" &&
+    curl -sS -o "$INSTALL_DIR/modules/packages.sh" "$REPO_URL/modules/packages.sh" &&
+    curl -sS -o "$INSTALL_DIR/modules/messages.sh" "$REPO_URL/modules/messages.sh" &&
+    curl -sS -o "$INSTALL_DIR/modules/prompt.sh" "$REPO_URL/modules/prompt.sh" &&
+    curl -sS -o "$INSTALL_DIR/modules/systems.sh" "$REPO_URL/modules/systems.sh"
+) > /dev/null 2>&1 &
+spinner $! "Downloading scripts..."
 
 # Add to shell profile
-echo "\n\033[90m○ Update shell profile...\033[0m\n"
+echo "○ Update shell profile"
 SHELL_RC="$HOME/.bashrc"
 [ -f "$HOME/.zshrc" ] && SHELL_RC="$HOME/.zshrc"
 
 if ! grep -q 'kickstart.sh' "$SHELL_RC"; then
     # Add multiline content to shell profile
-    cat << EOF >> "$SHELL_RC"
+    (
+        cat <<EOF >>"$SHELL_RC"
 
 # Kickstarter
 source $INSTALL_DIR/kickstart.sh
 
 EOF
-    echo -e "\n\033[1;32m✓ Done\033[0m Shell profile updated\n"
+    ) >/dev/null 2>&1 &
+    spinner $! "Updating shell profile..."
 else
-    echo -e "\n\036[90m✓ Profile already contains kickstart.sh\033[0m\n"
+    echo -e "\n\033[90m✓ Profile already contains kickstart.sh\033[0m\n"
 fi
-
 source "$SHELL_RC"
 
 # Cleanup
